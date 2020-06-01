@@ -1,0 +1,72 @@
+{
+  "name": "redwood-express-api",
+  "version": "0.8.1",
+  "files": [
+    "dist",
+    "importAll.macro.js"
+  ],
+  "main": "./dist/main.js",
+  "types": "./dist/main.d.ts",
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/client": "2.0.0-beta.6",
+    "@redwoodjs/internal": "^0.8.1",
+    "apollo-server-express": "^2.14.1",
+    "apollo-server-lambda": "2.11.0",
+    "babel-plugin-macros": "^2.8.0",
+    "core-js": "3.6.4",
+    "express": "^4.17.1",
+    "glob": "^7.1.6",
+    "graphql": "^14.6.0",
+    "graphql-iso-date": "^3.6.1",
+    "graphql-tools": "4.0.7",
+    "jsonwebtoken": "^8.5.1",
+    "jwks-rsa": "^1.8.0",
+    "lodash.merge": "^4.6.2",
+    "lodash.omitby": "^4.6.0",
+    "merge-graphql-schemas": "^1.7.6"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.0",
+    "@babel/node": "^7.8.7",
+    "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@babel/runtime-corejs3": "^7.9.2",
+    "@types/express": "^4.17.6",
+    "@types/graphql-iso-date": "^3.3.3",
+    "@types/jsonwebtoken": "^8.3.9",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/lodash.omitby": "^4.6.6",
+    "babel-plugin-auto-import": "^1.0.5",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-tester": "^9.0.0",
+    "cross-env": "^7.0.2",
+    "del-cli": "^3.0.0",
+    "gotrue-js": "^0.9.25",
+    "jest": "^25.2.3",
+    "lerna": "^3.20.2",
+    "move-cli": "^1.2.1",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.8.3"
+  },
+  "jest": {
+    "testPathIgnorePatterns": [
+      "/fixtures/",
+      "/dist/"
+    ]
+  },
+  "scripts": {
+    "build": "yarn build:clean && yarn build:js",
+    "build:js": "yarn cross-env NODE_ENV=production babel src -d dist --extensions \".js,.ts\" --source-maps inline && yarn move-cli ./dist/importAll.macro.js ./importAll.macro.js",
+    "build:clean": "yarn del-cli dist importAll.macro.js",
+    "prepublishOnly": "yarn build",
+    "build:watch": "nodemon --watch src --ext 'js,ts,tsx' --ignore dist --ignore importAll.macro.js --exec 'yarn build'",
+    "test": "yarn jest",
+    "test:watch": "yarn test --watch"
+  },
+  "gitHead": "1cb7c8d1085147787209af423c33a9c91c3e6517"
+}
